@@ -20,6 +20,15 @@
         </developer>
     </developers>
 
+    <properties>
+        <jdk.version>1.8</jdk.version>
+        <jackson.version>2.1.1</jackson.version>
+        <junit.version>4.11</junit.version>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <current.version>${project.version}</current.version>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
 
