@@ -2,6 +2,7 @@ package ca.products.jpa_models;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by mtaboubi on 16-07-14.
@@ -14,33 +15,35 @@ public class ShoppingBag {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne
+    @OneToMany
     @JoinColumn(name="Product_id")
-    Product product;
+    Set<Product> product;
 
     private Date addingDate;
 
     public ShoppingBag() {
     }
 
-    public ShoppingBag(Product product, Date addingDate) {
-        this.product = product;
-        this.addingDate = addingDate;
-    }
+
 
     public long getId() {
         return id;
+    }
+
+    public ShoppingBag(Set<Product> product, Date addingDate) {
+        this.product = product;
+        this.addingDate = addingDate;
     }
 
     public void setId(long id) {
         this.id = id;
     }
 
-    public Product getProduct() {
+    public Set<Product> getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(Set<Product> product) {
         this.product = product;
     }
 
