@@ -9,7 +9,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ca.products.front_module</groupId>
     <artifactId>front_module</artifactId>
-    <packaging>war</packaging>
+
     <name>front_module Maven Webapp</name>
     <url>http://maven.apache.org</url>
 
