@@ -16,23 +16,22 @@ public class ShoppingBag {
     private long id;
 
     @OneToMany
-    @JoinColumn(name="Product_id")
+    @JoinColumn(name="shopping_product_id")
     Set<Product> product;
 
     private Date addingDate;
 
+    //Useless but IntelliJ suggest that!
     public ShoppingBag() {
-    }
-
-
-
-    public long getId() {
-        return id;
     }
 
     public ShoppingBag(Set<Product> product, Date addingDate) {
         this.product = product;
         this.addingDate = addingDate;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public void setId(long id) {

@@ -22,6 +22,7 @@ public class Product {
         this.description = description;
     }
 
+    //Useless but IntelliJ suggest that!
     public Product() {
     }
 
