@@ -22,8 +22,8 @@
         <button id="loadCatalogue" class="btn btn-default">Load Catalogue</button>
 
         <div id="Products_Catalogue" style="height: 500px; border: solid 2px #666;">
-            <button id="addSelectedProduct" class="btn btn-default">add Selected Product</button>
         </div>
+        <button id="addSelectedProduct" class="btn btn-default">add Selected Product</button>
     </div>
 
     <div class="col-lg-3 col-md-3">
