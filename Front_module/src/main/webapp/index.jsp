@@ -35,8 +35,8 @@
 
     <div class="col-lg-3 col-md-3">
         <button id="loadShoppingBag" class="btn btn-default">load ShoppingBag for Member</button>
-        <div id="Products_Bag" style="height: 500px; border: solid 2px #666;">
-        </div>
+        <form id="Products_Bag" style="height: 500px; border: solid 2px #666;">
+        </form>
     </div>
 </div>
 
