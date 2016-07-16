@@ -22,6 +22,19 @@ public class RestServices {
     private ObjectMapper serializer;
 
     @GET
+    @Path("/")
+    public Response test() {
+
+        serializer = new ObjectMapper();
+        try {
+            return Response.status(200).entity(serializer.writeValueAsString("Great")).build();
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return Response.status(404).build();
+        }
+    }
+
+    @GET
     @Path("/listCatalogue")
     public Response listAllCatalogue() {
 
