@@ -1,31 +1,30 @@
 package ca.products.jpa_models;
 
 import javax.persistence.*;
-import java.util.Set;
 
 /**
  * Created by mtaboubi on 16-07-15.
  */
 @Entity
 @Table(name = "shopping_member")
-public class member {
+public class Member {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
 
-    private String pseudoname;
+    private String pseudonym;
 
     @OneToOne
     @JoinColumn(name="shopping_bag_id")
     ShoppingBag shoppingBag;
 
-    public member(String pseudoname) {
-        this.pseudoname = pseudoname;
+    public Member(String pseudonym) {
+        this.pseudonym = pseudonym;
     }
 
     //Useless but IntelliJ suggest that!
-    public member() {
+    public Member() {
     }
 
     public long getId() {
@@ -36,12 +35,12 @@ public class member {
         this.id = id;
     }
 
-    public String getPseudoname() {
-        return pseudoname;
+    public String getPseudonym() {
+        return pseudonym;
     }
 
-    public void setPseudoname(String pseudoname) {
-        this.pseudoname = pseudoname;
+    public void setPseudonym(String pseudoname) {
+        this.pseudonym = pseudoname;
     }
 
     public ShoppingBag getShoppingBag() {
