@@ -3,6 +3,10 @@
     <persistence-unit name="manager1" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
 
+        <class>ca.products.jpa_models.Member</class>
+        <class>ca.products.jpa_models.Product</class>
+        <class>ca.products.jpa_models.ShoppingBag</class>
+
         <properties>
 
             <!--PostgreSQL-->
