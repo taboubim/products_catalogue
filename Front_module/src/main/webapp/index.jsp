@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <script type="text/javascript" src="./common_libs/jquery-1.12.0.min.js"></script>
     <script type="text/javascript" src="./common_libs/XHRequests.js"></script>
+    <script type="text/javascript" src="./js/functions.js"></script>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
     <title>Product Shopping</title>
@@ -28,8 +29,8 @@
 
     <div class="col-lg-3 col-md-3">
         <button id="loadMembers" class="btn btn-default">Load All Members</button>
-        <div id="listMembers_Catalogue" style="height: 500px; border: solid 2px #666;">
-        </div>
+        <form id="listMembers" style="height: 500px; border: solid 2px #666;">
+        </form>
     </div>
 
     <div class="col-lg-3 col-md-3">
