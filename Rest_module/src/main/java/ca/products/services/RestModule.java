@@ -1,6 +1,5 @@
 package ca.products.services;
 
-import com.google.inject.servlet.ServletModule;
 import com.sun.jersey.api.core.PackagesResourceConfig;
 import com.sun.jersey.api.core.ResourceConfig;
 import com.sun.jersey.api.json.JSONConfiguration;
@@ -11,7 +10,7 @@ import java.util.HashMap;
 /**
  * Created by mtaboubi on 16-07-17.
  */
-public class RestModule extends ServletModule {
+public class RestModule extends JerseyServletModule {
 
     @Override
     protected void configureServlets() {
