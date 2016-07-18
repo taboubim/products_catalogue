@@ -24,7 +24,7 @@
     <div class="col-lg-3 col-md-3">
         <button id="loadCatalogue" class="btn btn-default">Load Catalogue</button>
 
-        <button id="loadDescriptionCatalogue" class="btn btn-default">Load Description for selected Products</button>
+        <button id="loadDescriptionProducts" class="btn btn-default">Load Description for selected Products</button>
 
         <button id="addSelectedProduct" class="btn btn-default">add Selected Product for selected Member</button>
 
@@ -43,6 +43,11 @@
         <button id="loadShoppingBag" class="btn btn-default">load ShoppingBag for Member</button>
         <form id="Products_Bag" style="height: 500px; border: solid 2px #666;">
         </form>
+    </div>
+</div>
+<div class="row">
+    <div id = "productsDetails" class="col-lg-8 col-md-8">
+
     </div>
 </div>
 

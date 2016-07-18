@@ -18,6 +18,8 @@ public interface ProductRepository {
 
     List<Product> findProductByName(final String name);
 
+    List<Product> findProductByID(final String id);
+
     List<Product> listAllProductsInCatalogue();
 
     void resetProductDB();

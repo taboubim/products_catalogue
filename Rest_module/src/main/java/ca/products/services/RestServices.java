@@ -135,7 +135,7 @@ public class RestServices {
 
     @GET
     @Transactional
-    @Path("/listCatalogue")
+    @Path("/listProductsCatalogue")
     public Response listAllProductsInCatalogue() {
 
         logger.info("Processing list all existing Products in the catalogue");
@@ -147,6 +147,23 @@ public class RestServices {
         serializer = new ObjectMapper();
         try {
             return Response.status(200).entity(serializer.writeValueAsString(products)).build();
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return Response.status(404).build();
+        }
+    }
+
+    @GET
+    @Transactional
+    @Path("/loadProductByID")
+    public Response loadProductByID(@QueryParam("product_id") String product_id) throws JSONException {
+
+        logger.info("Load Product by ID");
+
+        try {
+            List<Product> response = productRepository.findProductByID(product_id);
+            serializer = new ObjectMapper();
+            return Response.status(200).entity(serializer.writeValueAsString(response)).build();
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return Response.status(404).build();

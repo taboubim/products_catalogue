@@ -37,6 +37,13 @@ public class ProductRepositoryImpl implements ProductRepository {
         return q.getResultList();
     }
 
+    public List<Product> findProductByID(final String id) {
+        TypedQuery<Product> q = getEntityManager()
+                .createQuery("select e from Product e where e.id like :id", Product.class)
+                .setParameter("id", id);
+        return q.getResultList();
+    }
+
     public List<Product> listAllProductsInCatalogue() {
         TypedQuery<Product> q = getEntityManager()
                 .createQuery("select e from Product e", Product.class);

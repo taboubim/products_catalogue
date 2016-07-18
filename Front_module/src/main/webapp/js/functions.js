@@ -29,17 +29,35 @@ $(document).ready(function () {
     });
 
     $("#loadCatalogue").on("click", function () {
-
         $("#Products_Catalogue").empty();
-
-        ajaxReq().load("/services/listCatalogue", function (xhr) {
+        ajaxReq().load("/services/listProductsCatalogue", function (xhr) {
             var catalogue = $.parseJSON(xhr);
             $.each(catalogue, function (index, value) {
-                $("#Products_Catalogue").append('<input type="checkbox" name="catalogue_rd" value=\"' + value.id + '\">' + value.name + '<br>')
+                $("#Products_Catalogue").append('<input type="checkbox" name="catalogue_check" value=\"' + value.id + '\">' + value.name + '<br>')
             });
         });
 
     });
+
+    $("#loadDescriptionProducts").on("click", function () {
+
+        $("#productsDetails").empty();
+
+        // Get all checked checkbox :
+        $("input[name=catalogue_check]:checkbox").each(function(){
+            var $this = $(this);
+            var id = $this.val();
+
+            if($this.is(":checked")){
+                ajaxReq().load("/services/loadProductByID?product_id="+id, function (xhr) {
+                    var data = $.parseJSON(xhr)[0];
+                    $("#productsDetails").append("<p> ProductName = " + data.name + "|| Product Details = " + data.description +" </p><br/>");
+                });
+            }
+        });
+
+    });
+
 
     $("#loadShoppingBag").on("click", function () {
         ajaxReq().load("/services/listShoppingBag", function (xhr) {
