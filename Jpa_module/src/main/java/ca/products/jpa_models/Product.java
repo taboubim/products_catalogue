@@ -1,6 +1,9 @@
 package ca.products.jpa_models;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
+import java.util.UUID;
 
 /**
  * Created by mtaboubi on 16-07-14.
@@ -11,8 +14,9 @@ import javax.persistence.*;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    private String id;
 
     private String name;
     private String description;
@@ -26,11 +30,11 @@ public class Product {
     public Product() {
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

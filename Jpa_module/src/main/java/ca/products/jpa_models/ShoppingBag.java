@@ -1,5 +1,7 @@
 package ca.products.jpa_models;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -11,13 +13,20 @@ import java.util.Set;
 @Table(name = "shopping_bag")
 public class ShoppingBag {
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private long id;
 
-    @OneToMany
+    @Id
+    @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    private String id;
+
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="shopping_member_id")
+    private Member member;
+
+
+    @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn(name="shopping_product_id")
-    Set<Product> product;
+    private Set<Product> product;
 
     private Date addingDate;
 
@@ -30,11 +39,11 @@ public class ShoppingBag {
         this.addingDate = addingDate;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -52,5 +61,13 @@ public class ShoppingBag {
 
     public void setAddingDate(Date addingDate) {
         this.addingDate = addingDate;
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
     }
 }

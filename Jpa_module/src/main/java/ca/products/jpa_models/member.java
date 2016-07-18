@@ -1,5 +1,7 @@
 package ca.products.jpa_models;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 /**
@@ -10,14 +12,11 @@ import javax.persistence.*;
 public class Member {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    private String id;
 
     private String pseudonym;
-
-    @OneToOne
-    @JoinColumn(name="shopping_bag_id")
-    ShoppingBag shoppingBag;
 
     public Member(String pseudonym) {
         this.pseudonym = pseudonym;
@@ -27,11 +26,11 @@ public class Member {
     public Member() {
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -43,11 +42,4 @@ public class Member {
         this.pseudonym = pseudoname;
     }
 
-    public ShoppingBag getShoppingBag() {
-        return shoppingBag;
-    }
-
-    public void setShoppingBag(ShoppingBag shoppingBag) {
-        this.shoppingBag = shoppingBag;
-    }
 }
