@@ -3,8 +3,12 @@ package ca.products.services;
 import ca.products.jpa_models.Member;
 import ca.products.jpa_models.Product;
 import ca.products.jpa_models.ShoppingBag;
+import ca.products.repositories.MemberRepository;
+import ca.products.repositories.ProductRepository;
+import ca.products.repositories.ShoppingBagRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.google.inject.persist.Transactional;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
@@ -12,9 +16,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.inject.Provider;
+import javax.persistence.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.util.*;
@@ -26,6 +29,17 @@ import java.util.*;
 @Path("/")
 public class RestServices {
 
+    @Inject
+    private Provider<EntityManager> em;
+
+    @Inject
+    ProductRepository productRepository;
+
+    @Inject
+    ShoppingBagRepository shoppingBagRepository;
+
+    @Inject
+    MemberRepository memberRepository;
 
     private ObjectMapper serializer;
     Logger logger = LoggerFactory.getLogger(RestServices.class);
@@ -52,6 +66,7 @@ public class RestServices {
     }
 
     @POST
+    @Transactional
     @Path("/member")
     public void createMember(JSONObject memberObject) throws JSONException {
 
@@ -79,6 +94,7 @@ public class RestServices {
     }
 
     @GET
+    @Transactional
     @Path("/listMembers")
     public Response listAllMembers() {
 
@@ -86,13 +102,7 @@ public class RestServices {
 
         List<Member> members = new ArrayList<>();
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("manager1");
-        EntityManager em = emf.createEntityManager();
-
-        members.addAll(em.createQuery("SELECT object(e) FROM Member e").getResultList());
-
-        em.close();
-        emf.close();
+        members.addAll(memberRepository.listAllMembers());
 
         serializer = new ObjectMapper();
         try {
@@ -104,20 +114,15 @@ public class RestServices {
     }
 
     @GET
+    @Transactional
     @Path("/listShoppingBag")
     public Response listShoppingBag() {
 
         logger.info("Listing shopping Bag for a member");
 
-        List<ShoppingBag> shoppingBags = new ArrayList<>();
+        List<Product> shoppingBags = new ArrayList<>();
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("manager1");
-        EntityManager em = emf.createEntityManager();
-
-        shoppingBags.addAll(em.createQuery("SELECT object(e) FROM ShoppingBag e").getResultList());
-
-        em.close();
-        emf.close();
+        shoppingBags.addAll(shoppingBagRepository.listAllProductsInCatalogue());
 
         serializer = new ObjectMapper();
         try {
@@ -129,6 +134,7 @@ public class RestServices {
     }
 
     @GET
+    @Transactional
     @Path("/listCatalogue")
     public Response listAllProductsInCatalogue() {
 
@@ -136,13 +142,7 @@ public class RestServices {
 
         List<Product> products = new ArrayList<>();
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("manager1");
-        EntityManager em = emf.createEntityManager();
-
-        products.addAll(em.createQuery("SELECT object(e) FROM Product e").getResultList());
-
-        em.close();
-        emf.close();
+        products.addAll(productRepository.listAllProductsInCatalogue());
 
         serializer = new ObjectMapper();
         try {
@@ -154,38 +154,20 @@ public class RestServices {
     }
 
     @GET
+    @Transactional
     @Path("/reset")
-    public void resetData() {
+    public Response resetData() {
 
         logger.info("Processing reset");
         try {
 
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory("manager1");
-            EntityManager em = emf.createEntityManager();
-
-            em.getTransaction().begin();
-
-            for (int i = 0; i < 10; i++) {
-                em.persist(new Product("Product_" + i, "Desc_" + i));
-            }
-
-            for (int i = 0; i < 10; i++) {
-                ShoppingBag s = new ShoppingBag();
-                em.persist(s);
-                Member m = new Member("Member_" + i);
-                s.setMember(m);
-                em.persist(m);
-            }
-
-            em.flush();
-            em.getTransaction().commit();
-
-            em.close();
-            emf.close();
+            productRepository.resetProductDB();
+            memberRepository.resetMembersDB();
 
         } catch (Exception e) {
             throw new WebApplicationException(Response.Status.FORBIDDEN);
         }
+        return Response.status(200).build();
 
     }
 }
