@@ -6,7 +6,7 @@ import com.google.inject.AbstractModule;
 /**
  * Created by mtaboubi on 16-07-17.
  */
-public class AppInjector extends AbstractModule {
+public class GuiceModule extends AbstractModule {
 
     @Override
     protected void configure() {
@@ -15,5 +15,4 @@ public class AppInjector extends AbstractModule {
         bind(ProductRepository.class).to(ProductRepositoryImpl.class);
         bind(ShoppingBagRepository.class).to(ShoppingBagRepositoryImpl.class);
     }
-
 }
