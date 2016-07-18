@@ -1,8 +1,6 @@
 package ca.products.repositories;
 
-import ca.products.jpa_models.Member;
 import ca.products.jpa_models.Product;
-import ca.products.jpa_models.ShoppingBag;
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
 
@@ -49,6 +47,8 @@ public class ProductRepositoryImpl implements ProductRepository {
 
         EntityManager em = getEntityManager();
         em.getTransaction().begin();
+
+        getEntityManager().createQuery("DELETE FROM Product e").executeUpdate();
 
         for (int i = 0; i < 10; i++) {
             em.persist(new Product("Product_" + i, "Desc_" + i));

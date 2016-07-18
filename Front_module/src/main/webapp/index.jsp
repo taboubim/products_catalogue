@@ -17,14 +17,20 @@
 <div class="row">
 
     <div class="col-lg-2 col-md-2">
+        <button id="resetData" class="btn btn-default">Reset Data</button>
+        <p id="resetState"></p>
     </div>
 
     <div class="col-lg-3 col-md-3">
         <button id="loadCatalogue" class="btn btn-default">Load Catalogue</button>
 
+        <button id="loadDescriptionCatalogue" class="btn btn-default">Load Description for selected Products</button>
+
+        <button id="addSelectedProduct" class="btn btn-default">add Selected Product for selected Member</button>
+
         <div id="Products_Catalogue" style="height: 500px; border: solid 2px #666;">
         </div>
-        <button id="addSelectedProduct" class="btn btn-default">add Selected Product</button>
+
     </div>
 
     <div class="col-lg-3 col-md-3">

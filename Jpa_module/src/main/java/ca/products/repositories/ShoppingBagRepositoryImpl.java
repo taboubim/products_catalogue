@@ -44,6 +44,17 @@ public class ShoppingBagRepositoryImpl implements ShoppingBagRepository {
         return q.getResultList();
     }
 
+    public void resetShoppingBagDB() {
+
+        EntityManager em = getEntityManager();
+        em.getTransaction().begin();
+
+        getEntityManager().createQuery("DELETE FROM ShoppingBag e").executeUpdate();
+
+        em.flush();
+        em.getTransaction().commit();
+    }
+
     public EntityManager getEntityManager() {
         return emProvider.get();
     }

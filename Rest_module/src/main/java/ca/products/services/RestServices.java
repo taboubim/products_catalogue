@@ -162,6 +162,7 @@ public class RestServices {
         try {
 
             productRepository.resetProductDB();
+            shoppingBagRepository.resetShoppingBagDB();
             memberRepository.resetMembersDB();
 
         } catch (Exception e) {

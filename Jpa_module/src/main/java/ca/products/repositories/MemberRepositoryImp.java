@@ -33,6 +33,8 @@ public class MemberRepositoryImp implements MemberRepository {
         EntityManager em = getEntityManager();
         em.getTransaction().begin();
 
+        getEntityManager().createQuery("DELETE FROM Member e").executeUpdate();
+
         for (int i = 0; i < 10; i++) {
             ShoppingBag s = new ShoppingBag();
             em.persist(s);

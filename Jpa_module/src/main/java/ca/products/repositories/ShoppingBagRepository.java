@@ -12,11 +12,13 @@ import java.util.List;
  */
 public interface ShoppingBagRepository {
 
-    public void persist(final ShoppingBag shoppingBag);
+    void persist(final ShoppingBag shoppingBag);
 
-    public Product find(final String id);
+    Product find(final String id);
 
-    public List<Product> findProductByName(final String name) ;
+    List<Product> findProductByName(final String name) ;
 
-    public List<Product> listAllProductsInCatalogue();
+    List<Product> listAllProductsInCatalogue();
+
+    void resetShoppingBagDB();
 }
