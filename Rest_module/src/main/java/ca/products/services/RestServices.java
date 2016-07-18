@@ -5,11 +5,13 @@ import ca.products.jpa_models.Product;
 import ca.products.jpa_models.ShoppingBag;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.inject.persist.Transactional;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -27,6 +29,27 @@ public class RestServices {
 
     private ObjectMapper serializer;
     Logger logger = LoggerFactory.getLogger(RestServices.class);
+
+
+    @GET
+    @Transactional
+    @Path("/member")
+    public void createMember() throws JSONException {
+
+        logger.info("Processing Create Member");
+
+        Member member = new Member("pseudonym");
+        try {
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("manager1");
+            EntityManager em = emf.createEntityManager();
+
+            em.persist(member);
+            em.flush();
+
+        } catch (Exception e) {
+            throw new WebApplicationException(Response.Status.FORBIDDEN);
+        }
+    }
 
     @POST
     @Path("/member")
@@ -130,4 +153,39 @@ public class RestServices {
         }
     }
 
+    @GET
+    @Path("/reset")
+    public void resetData() {
+
+        logger.info("Processing reset");
+        try {
+
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("manager1");
+            EntityManager em = emf.createEntityManager();
+
+            em.getTransaction().begin();
+
+            for (int i = 0; i < 10; i++) {
+                em.persist(new Product("Product_" + i, "Desc_" + i));
+            }
+
+            for (int i = 0; i < 10; i++) {
+                ShoppingBag s = new ShoppingBag();
+                em.persist(s);
+                Member m = new Member("Member_" + i);
+                s.setMember(m);
+                em.persist(m);
+            }
+
+            em.flush();
+            em.getTransaction().commit();
+
+            em.close();
+            emf.close();
+
+        } catch (Exception e) {
+            throw new WebApplicationException(Response.Status.FORBIDDEN);
+        }
+
+    }
 }
