@@ -26,29 +26,29 @@
     <div class="col-lg-3 col-md-3">
         <button id="loadCatalogue" class="btn btn-default">Load Catalogue</button>
 
-        <button id="loadDescriptionProducts" class="btn btn-default">Load Description for selected Products</button>
+        <div id="Products_Catalogue" style="height: 300px; border: solid 2px #666;">
+        </div>
 
         <button id="addSelectedProduct" class="btn btn-default">add Selected Product for selected Member</button>
 
-        <div id="Products_Catalogue" style="height: 500px; border: solid 2px #666;">
-        </div>
+        <button id="loadDescriptionProducts" class="btn btn-default">Load Description for selected Products</button>
 
     </div>
 
     <div class="col-lg-3 col-md-3">
         <button id="loadMembers" class="btn btn-default">Load All Members</button>
-        <form id="listMembers" style="height: 500px; border: solid 2px #666;">
+        <form id="listMembers" style="height: 300px; border: solid 2px #666;">
         </form>
     </div>
 
     <div class="col-lg-3 col-md-3">
         <button id="loadShoppingBag" class="btn btn-default">load ShoppingBag for Member</button>
-        <form id="shoppingBagMember" style="height: 500px; border: solid 2px #666;">
+        <form id="shoppingBagMember" style="height: 300px; border: solid 2px #666;">
         </form>
     </div>
 </div>
 <div class="row">
-    <div id="productsDetails" class="col-lg-8 col-md-8">
+    <div id="productsDetails" class="col-lg-8 col-md-8"  style="height: 300px; border: solid 2px #666;">
 
     </div>
 </div>
