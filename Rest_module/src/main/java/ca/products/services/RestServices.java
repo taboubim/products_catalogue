@@ -47,54 +47,6 @@ public class RestServices {
     Logger logger = LoggerFactory.getLogger(RestServices.class);
 
 
-    @GET
-    @Transactional
-    @Path("/member")
-    public void createMember() throws JSONException {
-
-        logger.info("Processing Create Member");
-
-        Member member = new Member("pseudonym");
-        try {
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory("manager1");
-            EntityManager em = emf.createEntityManager();
-
-            em.persist(member);
-            em.flush();
-
-        } catch (Exception e) {
-            throw new WebApplicationException(Response.Status.FORBIDDEN);
-        }
-    }
-
-    @POST
-    @Transactional
-    @Path("/member")
-    public void createMember(JSONObject memberObject) throws JSONException {
-
-        logger.info("Processing Create Member");
-
-        Member member = new Member(memberObject.getJSONObject("pseudonym").toString());
-        try {
-
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory("manager1");
-            EntityManager em = emf.createEntityManager();
-
-            em.getTransaction().begin();
-            if (!em.contains(member)) {
-                em.persist(member);
-                em.flush();
-            }
-            em.getTransaction().commit();
-
-            em.close();
-            emf.close();
-
-        } catch (Exception e) {
-            throw new WebApplicationException(Response.Status.FORBIDDEN);
-        }
-    }
-
     @POST
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
