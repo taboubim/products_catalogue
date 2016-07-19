@@ -12,20 +12,19 @@ import javax.persistence.*;
 public class Member {
 
     @Id
-    @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
 
     private String pseudonym;
 
-    @OneToOne(cascade=CascadeType.ALL, mappedBy = "member")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "member")
     private ShoppingBag shoppingBag;
 
     public Member(String pseudonym) {
         this.pseudonym = pseudonym;
     }
 
-    //Useless but IntelliJ suggest that!
     public Member() {
     }
 
@@ -39,10 +38,6 @@ public class Member {
 
     public String getPseudonym() {
         return pseudonym;
-    }
-
-    public void setPseudonym(String pseudoname) {
-        this.pseudonym = pseudoname;
     }
 
     public ShoppingBag getShoppingBag() {
