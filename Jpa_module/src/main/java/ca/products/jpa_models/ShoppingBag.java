@@ -28,15 +28,11 @@ public class ShoppingBag {
     @OneToMany(cascade=CascadeType.ALL)
     private Set<Product> product = new HashSet<Product>();
 
-    private Date addingDate;
-
-    //Useless but IntelliJ suggest that!
     public ShoppingBag() {
     }
 
-    public ShoppingBag(Set<Product> product, Date addingDate) {
+    public ShoppingBag(Set<Product> product) {
         this.product = product;
-        this.addingDate = addingDate;
     }
 
     public String getId() {
@@ -53,14 +49,6 @@ public class ShoppingBag {
 
     public void setProduct(Set<Product> product) {
         this.product = product;
-    }
-
-    public Date getAddingDate() {
-        return addingDate;
-    }
-
-    public void setAddingDate(Date addingDate) {
-        this.addingDate = addingDate;
     }
 
     public Member getMember() {

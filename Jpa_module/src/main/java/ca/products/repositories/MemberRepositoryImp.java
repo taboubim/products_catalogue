@@ -44,7 +44,7 @@ public class MemberRepositoryImp implements MemberRepository {
 
             Set<Product> products = new HashSet<>();
 
-            ShoppingBag s = new ShoppingBag(products, new Date());
+            ShoppingBag s = new ShoppingBag(products);
             em.persist(s);
             Member m = new Member("Member_" + i);
             s.setMember(m);

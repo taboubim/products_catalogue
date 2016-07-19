@@ -30,7 +30,6 @@ public class Product {
         this.description = description;
     }
 
-    //Useless but IntelliJ suggest that!
     public Product() {
     }
 
@@ -46,15 +45,9 @@ public class Product {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }
