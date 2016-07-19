@@ -13,6 +13,8 @@ public interface MemberRepository {
 
     void saveInNewTransaction(Member object);
 
+    Member find(final String id);
+
     List<Member> listAllMembers();
 
     void save(Member object);

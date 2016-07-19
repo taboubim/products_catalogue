@@ -16,7 +16,7 @@ public interface ShoppingBagRepository {
 
     ShoppingBag find(final String id);
 
-    List<ShoppingBag> findShoppingBagByName(final String name) ;
+    ShoppingBag findByMemberID(final String member_id);
 
     List<Product> listAllProductsInCatalogue();
 

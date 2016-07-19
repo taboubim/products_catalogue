@@ -1,5 +1,6 @@
 package ca.products.repositories;
 
+import ca.products.jpa_models.Member;
 import ca.products.jpa_models.Product;
 import ca.products.jpa_models.ShoppingBag;
 import com.google.inject.Inject;
@@ -31,12 +32,10 @@ public class ShoppingBagRepositoryImpl implements ShoppingBagRepository {
         return getEntityManager().find(ShoppingBag.class, id);
     }
 
-    public List<ShoppingBag> findShoppingBagByName(final String name) {
-        TypedQuery<ShoppingBag> q = getEntityManager()
-                .createQuery("select e from Product e where e.name like :name", ShoppingBag.class)
-                .setParameter("name", name);
-        return q.getResultList();
+    public ShoppingBag findByMemberID(final String member_id) {
+        return getEntityManager().find(Member.class, member_id).getShoppingBag();
     }
+
     @Transactional
     public List<Product> listAllProductsInCatalogue() {
         TypedQuery<Product> q = getEntityManager()

@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.google.inject.persist.Transactional;
+import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.slf4j.Logger;
@@ -19,6 +20,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.*;
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.*;
 
@@ -36,10 +38,10 @@ public class RestServices {
     ProductRepository productRepository;
 
     @Inject
-    ShoppingBagRepository shoppingBagRepository;
+    MemberRepository memberRepository;
 
     @Inject
-    MemberRepository memberRepository;
+    ShoppingBagRepository shoppingBagRepository;
 
     private ObjectMapper serializer;
     Logger logger = LoggerFactory.getLogger(RestServices.class);
@@ -87,6 +89,43 @@ public class RestServices {
 
             em.close();
             emf.close();
+
+        } catch (Exception e) {
+            throw new WebApplicationException(Response.Status.FORBIDDEN);
+        }
+    }
+
+    @POST
+    @Transactional
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/addProduct")
+    public void addProductToShoppingBag(JSONObject object) throws JSONException {
+
+        logger.info("adding Product to a shopping bag");
+
+        try {
+
+            String memberId = object.get("member_id").toString();
+
+            ArrayList<String> listProducts_id = new ArrayList<>();
+            JSONArray jArray = object.getJSONArray("products_id");
+            if (jArray != null) {
+                for (int i = 0; i < jArray.length(); i++) {
+                    listProducts_id.add(jArray.get(i).toString());
+                }
+            }
+
+            ShoppingBag shoppingBag = shoppingBagRepository.findByMemberID(memberId);
+            Set<Product> productSet = shoppingBag.getProduct();
+
+            for (String product_new_id : listProducts_id) {
+
+                Product product_new = productRepository.find(product_new_id);
+                productSet.add(product_new);
+            }
+
+            shoppingBag.setProduct(productSet);
+            shoppingBagRepository.persist(shoppingBag);
 
         } catch (Exception e) {
             throw new WebApplicationException(Response.Status.FORBIDDEN);

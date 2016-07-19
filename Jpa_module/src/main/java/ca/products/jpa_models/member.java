@@ -18,6 +18,9 @@ public class Member {
 
     private String pseudonym;
 
+    @OneToOne(cascade=CascadeType.ALL, mappedBy = "member")
+    private ShoppingBag shoppingBag;
+
     public Member(String pseudonym) {
         this.pseudonym = pseudonym;
     }
@@ -42,4 +45,11 @@ public class Member {
         this.pseudonym = pseudoname;
     }
 
+    public ShoppingBag getShoppingBag() {
+        return shoppingBag;
+    }
+
+    public void setShoppingBag(ShoppingBag shoppingBag) {
+        this.shoppingBag = shoppingBag;
+    }
 }

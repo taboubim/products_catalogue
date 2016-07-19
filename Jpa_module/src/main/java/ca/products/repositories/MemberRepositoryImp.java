@@ -1,19 +1,19 @@
 package ca.products.repositories;
 
 import ca.products.jpa_models.Member;
+import ca.products.jpa_models.Product;
 import ca.products.jpa_models.ShoppingBag;
 import com.google.inject.Inject;
 
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by mtaboubi on 16-07-16.
  */
 public class MemberRepositoryImp implements MemberRepository {
-
 
     private Provider<EntityManager> emProvider;
 
@@ -21,6 +21,11 @@ public class MemberRepositoryImp implements MemberRepository {
     public MemberRepositoryImp(Provider<EntityManager> emProvider) {
         this.emProvider = emProvider;
     }
+
+    public Member find(final String id) {
+        return getEntityManager().find(Member.class, id);
+    }
+
 
     public List<Member> listAllMembers() {
         TypedQuery<Member> q = getEntityManager()
@@ -36,9 +41,15 @@ public class MemberRepositoryImp implements MemberRepository {
         getEntityManager().createQuery("DELETE FROM Member e").executeUpdate();
 
         for (int i = 0; i < 10; i++) {
-            ShoppingBag s = new ShoppingBag();
+
+            Set<Product> products = new HashSet<>();
+
+            ShoppingBag s = new ShoppingBag(products, new Date());
             em.persist(s);
             Member m = new Member("Member_" + i);
+            s.setMember(m);
+
+            m = new Member("Member_" + i);
             s.setMember(m);
             save(m);
         }

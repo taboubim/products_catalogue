@@ -1,9 +1,11 @@
 package ca.products.jpa_models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -20,13 +22,11 @@ public class ShoppingBag {
     private String id;
 
     @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="shopping_member_id")
+    @JsonIgnore
     private Member member;
 
-
     @OneToMany(cascade=CascadeType.ALL)
-    @JoinColumn(name="shopping_product_id")
-    private Set<Product> product;
+    private Set<Product> product = new HashSet<Product>();
 
     private Date addingDate;
 

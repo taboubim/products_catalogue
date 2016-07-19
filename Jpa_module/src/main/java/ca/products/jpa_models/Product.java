@@ -3,6 +3,7 @@ package ca.products.jpa_models;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -20,6 +21,9 @@ public class Product {
 
     private String name;
     private String description;
+
+    @ManyToOne(cascade=CascadeType.ALL)
+    ShoppingBag shoppingBag;
 
     public Product(String name, String description) {
         this.name = name;

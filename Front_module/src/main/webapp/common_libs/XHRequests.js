@@ -10,18 +10,20 @@ var ajaxReq = function () {
         }).done(success).error(failure);
     };
 
-    api.create = function (object, url, success, failure) {
+    api.create = function (url, object, success, failure) {
         return $.ajax({
+            contentType: 'application/json',
             type: 'POST',
             data: $.toJSON(object),
             url: url
         }).done(success).error(failure);
     };
 
+
     api.update = function (object, url, success, failure) {
         return $.ajax({
             type: 'PUT',
-            data: $.toJSON(object),
+            data: object,
             url: url,
             success: success,
             error: failure
