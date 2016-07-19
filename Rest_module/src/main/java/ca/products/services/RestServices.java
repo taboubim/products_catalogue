@@ -107,17 +107,16 @@ public class RestServices {
     @GET
     @Transactional
     @Path("/listShoppingBag")
-    public Response listShoppingBag() {
+    public Response listShoppingBag(@QueryParam("member_id") String member_id) {
 
         logger.info("Listing shopping Bag for a member");
 
-        List<Product> shoppingBags = new ArrayList<>();
-
-        shoppingBags.addAll(shoppingBagRepository.listAllProductsInCatalogue());
+        ShoppingBag shoppingBag = shoppingBagRepository.findByMemberID(member_id);
+        Set<Product> productSet = shoppingBag.getProduct();
 
         serializer = new ObjectMapper();
         try {
-            return Response.status(200).entity(serializer.writeValueAsString(shoppingBags)).build();
+            return Response.status(200).entity(serializer.writeValueAsString(productSet)).build();
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return Response.status(404).build();

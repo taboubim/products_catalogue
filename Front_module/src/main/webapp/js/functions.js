@@ -9,6 +9,7 @@ $(document).ready(function () {
         $("#listMembers").empty();
         $("#Products_Catalogue").empty();
         $("#Products_Bag").empty();
+        $("#shoppingBagMember").empty();
 
         ajaxReq().load("/services/reset", function () {
             window.alert("Reset Done");
@@ -65,10 +66,10 @@ $(document).ready(function () {
         }).get();
 
         // Get selected Member
-        var selectedMember = $("input[name=members_rd]:checked")[0].value;
+        var selectedMember_id = $("input[name=members_rd]:checked")[0].value;
 
         ajaxReq().create("/services/addProduct", {
-            member_id: selectedMember,
+            member_id: selectedMember_id,
             products_id: selectedProducts
         }, function (xhr) {
         });
@@ -76,13 +77,19 @@ $(document).ready(function () {
     });
 
     $("#loadShoppingBag").on("click", function () {
-        ajaxReq().load("/services/listShoppingBag", function (xhr) {
-            var data = $.parseJSON(xhr);
+        $("#shoppingBagMember").empty();
 
+        var selectedMember_id = $("input[name=members_rd]:checked")[0].value;
+
+        ajaxReq().load("/services/listShoppingBag?member_id=" + selectedMember_id, function (xhr) {
+            var data = $.parseJSON(xhr);
+            $.each(data, function(index, value){
+                $("#shoppingBagMember").append("<p> ProductName = " + value.name +
+                    "|| Product Details = " + value.description + " </p><br/>");
+            })
         });
     });
-
-})
+});
 
 
 
