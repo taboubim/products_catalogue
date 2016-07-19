@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <script type="text/javascript" src="./common_libs/jquery-1.12.0.min.js"></script>
+    <script type="text/javascript" src="./common_libs/jquery.json.min.js"></script>
+
     <script type="text/javascript" src="./common_libs/XHRequests.js"></script>
     <script type="text/javascript" src="./js/functions.js"></script>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -46,7 +48,7 @@
     </div>
 </div>
 <div class="row">
-    <div id = "productsDetails" class="col-lg-8 col-md-8">
+    <div id="productsDetails" class="col-lg-8 col-md-8">
 
     </div>
 </div>
