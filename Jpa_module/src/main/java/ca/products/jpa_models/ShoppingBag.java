@@ -31,7 +31,8 @@ public class ShoppingBag {
     public ShoppingBag() {
     }
 
-    public ShoppingBag(Set<Product> product) {
+    public ShoppingBag(Set<Product> product)
+    {
         this.product = product;
     }
 
