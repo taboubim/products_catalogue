@@ -14,9 +14,9 @@ public interface ShoppingBagRepository {
 
     void persist(final ShoppingBag shoppingBag);
 
-    Product find(final String id);
+    ShoppingBag find(final String id);
 
-    List<Product> findProductByName(final String name) ;
+    List<ShoppingBag> findShoppingBagByName(final String name) ;
 
     List<Product> listAllProductsInCatalogue();
 

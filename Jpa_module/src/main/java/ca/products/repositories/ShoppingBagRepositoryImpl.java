@@ -27,13 +27,13 @@ public class ShoppingBagRepositoryImpl implements ShoppingBagRepository {
         getEntityManager().persist(shoppingBag);
     }
 
-    public Product find(final String id) {
-        return getEntityManager().find(Product.class, id);
+    public ShoppingBag find(final String id) {
+        return getEntityManager().find(ShoppingBag.class, id);
     }
 
-    public List<Product> findProductByName(final String name) {
-        TypedQuery<Product> q = getEntityManager()
-                .createQuery("select e from Product e where e.name like :name", Product.class)
+    public List<ShoppingBag> findShoppingBagByName(final String name) {
+        TypedQuery<ShoppingBag> q = getEntityManager()
+                .createQuery("select e from Product e where e.name like :name", ShoppingBag.class)
                 .setParameter("name", name);
         return q.getResultList();
     }
