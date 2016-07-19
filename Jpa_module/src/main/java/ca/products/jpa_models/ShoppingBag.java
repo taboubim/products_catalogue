@@ -25,7 +25,7 @@ public class ShoppingBag {
     @JsonIgnore
     private Member member;
 
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
     private Set<Product> product = new HashSet<Product>();
 
     public ShoppingBag() {

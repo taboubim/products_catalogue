@@ -1,5 +1,6 @@
 package ca.products.jpa_models;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -19,6 +20,11 @@ public class Member {
     private String pseudonym;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "member")
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE,
+            org.hibernate.annotations.CascadeType.DELETE,
+            org.hibernate.annotations.CascadeType.MERGE,
+            org.hibernate.annotations.CascadeType.PERSIST,
+            org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
     private ShoppingBag shoppingBag;
 
     public Member(String pseudonym) {
